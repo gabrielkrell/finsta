@@ -1,4 +1,3 @@
 *.pyc
 finsta_env/
-activate.sh
-
+activate
