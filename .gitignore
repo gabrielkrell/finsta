@@ -1,3 +1,4 @@
 *.pyc
 finsta_env/
 activate
+images/*
