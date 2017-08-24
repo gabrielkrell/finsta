@@ -48,11 +48,12 @@ img {
 <img class="logo" src="/logos/FUSER.png">
 <h1> Studio Finsta </a> </h1>
 <hr style="margin:0; padding:0; background-color: #F7D25F; border: 0; height:1px;" />
+
 <ul>
-
-{{ image_html | safe }}
-
-
+{% for image in images %}
+  <li><img src="{{ image }}"></li>
+{% endfor %}
 </ul>
+
 </body>
 </html>
