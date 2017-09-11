@@ -1,4 +1,5 @@
-from flask import Flask, send_from_directory, render_template
+from flask import Flask, send_from_directory, render_template, url_for, redirect
+import socket
 import os
 import sys
 from importlib import import_module
@@ -17,6 +18,16 @@ def sorted_files(path):
     def modification_time(f):
         return os.stat(os.path.join(path, f)).st_mtime
     return sorted(os.listdir(path), key=modification_time, reverse=True)
+
+
+@app.route('/')
+def show_homepage():
+    return render_template('homepage.html', hostname=socket.gethostname())
+
+
+@app.route('/shell')
+def redirect_to_shellinabox():
+    return redirect(url_for('show_homepage') + ":4200")
 
 
 @app.route('/images/<path:path>')
@@ -43,7 +54,7 @@ def take_pic(filename):
         return "Ran the {0}.py script successfully.".format(filename)
 
 
-@app.route("/")
+@app.route("/finsta")
 def show_finsta_feed():
     location = os.path.join(
         os.path.dirname(os.path.abspath(__file__)),
@@ -55,4 +66,4 @@ def show_finsta_feed():
 
 
 if __name__ == "__main__":
-    app.run(debug=True, host='0.0.0.0')
+    app.run()
