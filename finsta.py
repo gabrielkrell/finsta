@@ -25,11 +25,6 @@ def show_homepage():
     return render_template('homepage.html', hostname=socket.gethostname())
 
 
-@app.route('/shell')
-def redirect_to_shellinabox():
-    return redirect(url_for('show_homepage') + ":4200")
-
-
 @app.route('/images/<path:path>')
 def show_image(path):
     return send_from_directory('images', path)
@@ -54,6 +49,7 @@ def take_pic(filename):
         return "Ran the {0}.py script successfully.".format(filename)
 
 
+# todo: fix when no images directory
 @app.route("/finsta")
 def show_finsta_feed():
     location = os.path.join(
@@ -66,4 +62,4 @@ def show_finsta_feed():
 
 
 if __name__ == "__main__":
-    app.run()
+    app.run(debug=True, host='0.0.0.0')
