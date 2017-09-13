@@ -25,6 +25,17 @@ def show_homepage():
     return render_template('homepage.html', hostname=socket.gethostname())
 
 
+@app.route('/shell')
+def redirect_to_shellinabox():
+    """Dummy method for /shell
+
+    Apache will grab requests to /shell, so this should not run unless Finsta
+    is being run with the Flask debugger thing.  In that case, we'll send the
+    user back to the index (it should really show an error page).
+    """
+    return redirect(url_for('show_homepage'))
+
+
 @app.route('/images/<path:path>')
 def show_image(path):
     return send_from_directory('images', path)
