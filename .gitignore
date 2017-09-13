@@ -101,4 +101,4 @@ finsta_env/
 
 
 activate
-images/*
+static/images/*

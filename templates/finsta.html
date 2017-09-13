@@ -16,7 +16,7 @@
 
 <ul>
 {% for image in images %}
-  <li><img src="{{ image }}"></li>
+  <li><img src="{{ url_for('static', filename=image) }}"></li>
 {% endfor %}
 </ul>
 
