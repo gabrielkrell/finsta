@@ -51,6 +51,8 @@ def show_image_scripts():
 
 @app.route('/take_picture/<filename>')
 def take_pic(filename):
+    if filename.endswith('.py'):
+        filename = filename[:-3]
     qualified_name = 'camera_scripts.{0}'.format(filename)
     if qualified_name in sys.modules:
         del sys.modules[qualified_name]
