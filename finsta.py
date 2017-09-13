@@ -2,6 +2,7 @@ from flask import Flask, send_from_directory, render_template, url_for, redirect
 import socket
 import os
 import sys
+import traceback
 from itertools import repeat
 from importlib import import_module
 
@@ -56,12 +57,17 @@ def take_pic(filename):
     qualified_name = 'camera_scripts.{0}'.format(filename)
     if qualified_name in sys.modules:
         del sys.modules[qualified_name]
-    student_script = import_module(qualified_name)
     try:
+        student_script = import_module(qualified_name)
         student_script.click()
     except Exception:
-        return "oops (this will show the stack trace later)"
-    finally:
+        # Normally a bare except is horrible, but we're printing out the error
+        # and student code could generate almost any exception.
+        stack_trace = traceback.format_tb(sys.exc_info()[2])
+        # todo: show only the relevant parts of the stack trace
+        return render_template('error.html',
+                               stack_trace=stack_trace)
+    else:
         return "Ran the {0}.py script successfully.".format(filename)
 
 
