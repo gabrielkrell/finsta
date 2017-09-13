@@ -2,10 +2,12 @@ from flask import Flask, send_from_directory, render_template, url_for, redirect
 import socket
 import os
 import sys
+from collections import namedtuple
 from importlib import import_module
 
 app = Flask(__name__, static_url_path='')
 
+# todo: use /static/ for static files
 
 # from stack overflow: https://stackoverflow.com/a/4500607/
 def sorted_files(path):
@@ -36,14 +38,15 @@ def redirect_to_shellinabox():
     return redirect(url_for('show_homepage'))
 
 
-@app.route('/images/<path:path>')
-def show_image(path):
-    return send_from_directory('images', path)
-
-
-@app.route('/logos/<path:path>')
-def show_logo(path):
-    return send_from_directory('logos', path)
+@app.route('/scripts')
+def show_image_scripts():
+    finsta_dir = os.path.dirname(os.path.realpath(__file__))
+    script_dir = os.path.join(finsta_dir, 'camera_scripts')
+    scripts = []
+    for filename in os.listdir(script_dir):
+        if filename.endswith('.py') and filename != '__init__.py':
+            scripts.append(filename)
+    return render_template('camera_scripts.html', image_scripts=scripts)
 
 
 @app.route('/take_picture/<filename>')
@@ -65,10 +68,14 @@ def take_pic(filename):
 def show_finsta_feed():
     location = os.path.join(
         os.path.dirname(os.path.abspath(__file__)),
+        'static',
         'images')
-    images = sorted_files(location)
-    image_paths = ['/images/' + os.path.basename(image) for image in images]
-    print(image_paths)
+    try:
+        images = sorted_files(location)
+    except FileNotFoundError as e:
+        # we'll let the camera make the folder later.
+        images = ()
+    image_paths = ['/static/images/' + os.path.basename(image) for image in images]
     return render_template('finsta.html', images=image_paths)
 
 
