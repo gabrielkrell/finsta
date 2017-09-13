@@ -2,7 +2,7 @@ from flask import Flask, send_from_directory, render_template, url_for, redirect
 import socket
 import os
 import sys
-from collections import namedtuple
+from itertools import repeat
 from importlib import import_module
 
 app = Flask(__name__, static_url_path='')
@@ -15,7 +15,7 @@ def sorted_files(path):
     Arguments:
         path {str} -- The path to a directory.
     Returns:
-        list(str) -- A list of files, sorted by modification time.
+        list(str) -- A list of filenames, sorted by modification time.
     """
     def modification_time(f):
         return os.stat(os.path.join(path, f)).st_mtime
@@ -63,7 +63,6 @@ def take_pic(filename):
         return "Ran the {0}.py script successfully.".format(filename)
 
 
-# todo: fix when no images directory
 @app.route("/finsta")
 def show_finsta_feed():
     location = os.path.join(
@@ -73,9 +72,9 @@ def show_finsta_feed():
     try:
         images = sorted_files(location)
     except FileNotFoundError as e:
-        # we'll let the camera make the folder later.
+        # let the camera make the folder later.
         images = ()
-    image_paths = ['/static/images/' + os.path.basename(image) for image in images]
+    image_paths = map(os.path.join, repeat('images'), images)
     return render_template('finsta.html', images=image_paths)
 
 
