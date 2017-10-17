@@ -1,14 +1,10 @@
-from flask import Flask, send_from_directory, render_template, url_for, redirect
+from flask import Flask, render_template, url_for, redirect
 import socket
 import os
-import sys
-import traceback
 from itertools import repeat
-from importlib import import_module
 
 app = Flask(__name__, static_url_path='')
 
-# todo: use /static/ for static files
 
 # from stack overflow: https://stackoverflow.com/a/4500607/
 def sorted_files(path):
@@ -37,38 +33,6 @@ def redirect_to_shellinabox():
     user back to the index (it should really show an error page).
     """
     return redirect(url_for('show_homepage'))
-
-
-@app.route('/scripts')
-def show_image_scripts():
-    finsta_dir = os.path.dirname(os.path.realpath(__file__))
-    script_dir = os.path.join(finsta_dir, 'camera_scripts')
-    scripts = []
-    for filename in os.listdir(script_dir):
-        if filename.endswith('.py') and filename != '__init__.py':
-            scripts.append(filename)
-    return render_template('camera_scripts.html', image_scripts=scripts)
-
-
-@app.route('/take_picture/<filename>')
-def take_pic(filename):
-    if filename.endswith('.py'):
-        filename = filename[:-3]
-    qualified_name = 'camera_scripts.{0}'.format(filename)
-    if qualified_name in sys.modules:
-        del sys.modules[qualified_name]
-    try:
-        student_script = import_module(qualified_name)
-        student_script.click()
-    except Exception:
-        # Normally a bare except is horrible, but we're printing out the error
-        # and student code could generate almost any exception.
-        stack_trace = traceback.format_tb(sys.exc_info()[2])
-        # todo: show only the relevant parts of the stack trace
-        return render_template('error.html',
-                               stack_trace=stack_trace)
-    else:
-        return "Ran the {0}.py script successfully.".format(filename)
 
 
 @app.route("/finsta")
