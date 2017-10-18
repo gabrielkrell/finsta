@@ -102,3 +102,4 @@ finsta_env/
 
 activate
 static/images/*
+!static/images/welcome.jpg
