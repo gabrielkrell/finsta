@@ -39,7 +39,7 @@ def click():
         camera.annotate_foreground = Color('blue')
         camera.annotate_text_size = 30
         date_str = dt.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-        camera.annotate_text = "    Took a picture at "
+        camera.annotate_text = "Took a picture at "
         camera.annotate_text += date_str
         camera.image_effect = 'none'
         # choices include none, negative, solarize, sketch, denoise,
