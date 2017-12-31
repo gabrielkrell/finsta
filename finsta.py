@@ -2,8 +2,10 @@ from flask import Flask, render_template, url_for, redirect
 import socket
 import os
 from itertools import repeat
+from flask_bootstrap import Bootstrap
 
 app = Flask(__name__, static_url_path='')
+Bootstrap(app)
 
 
 # from stack overflow: https://stackoverflow.com/a/4500607/
