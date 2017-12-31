@@ -17,15 +17,23 @@
 {% endblock %}
 
 {% block content %}
+<div class="container">
 <div class="row">
-  <div class="col-sm-4">
-    <img class="logo" src="/logos/FUSER.png">
-    <div class="well">      
-      <div class="row"><img src="/images/thumbnail.jpg" class="img-thumbnail img-responsive"></div>
-      <div class="row"><h2><a href="{{url_for('show_finsta_feed')}}">FUSE Insta</a></h2></div>
-      <div class="row"><p>Opens the Insta in a new window.</p></div>
+  <div class="col-sm-4 text-right">
+    <div class="row pull-right">
+      <img class="img-responsive" src="/logos/FUSER.png">
     </div>
-    <div class="row">
+    <div class="row pull-right">
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <img src="/images/welcome.jpg" class="img-thumbnail img-responsive"></div>
+        <div class="panel-footer">
+          <div><h2><a href="{{url_for('show_finsta_feed')}}">FUSE Insta</a></h2></div>
+          <div>Opens the Insta in a new window.</div>
+        </div>
+      </div>
+    </div>
+    <div class="row pull-right">
       <div class="panel panel-default">
         <div class="panel-heading">Code Tips</div>
         <div class="panel-body">
@@ -50,5 +58,5 @@
       <iframe class="embed-responsive-item" src="{{url_for('redirect_to_shellinabox')}}"></iframe>
     </div>
 </div>
-<hr style="margin:0; padding:0; background-color: #F7D25F; border: 0; height:1px;" />
+</div>
 {% endblock %}
