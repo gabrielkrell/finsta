@@ -26,18 +26,29 @@
       <div class="row"><p>Opens the Insta in a new window.</p></div>
     </div>
     <div class="row">
-      <h2>Code Tips</h2>
-      <div class="list-group">
-        <a href="#" class="list-group-item">
-          <code>ls</code>: list the files in a directory</a>
-        <a href="#" class="list-group-item">
-          <code>cd</code>: go into a folder</a>
-        <a href="#" class="list-group-item">
-          <code>nano</code>: edit a text file</a>
+      <div class="panel panel-default">
+        <div class="panel-heading">Code Tips</div>
+        <div class="panel-body">
+          <div class="list-group">
+            <li class="list-group-item">
+              <code>ls</code>: list the files in a directory</li>
+            <li class="list-group-item">
+              <code>cd</code>: go into a folder</li>
+            <li class="list-group-item">
+              <code>nano</code>: edit a text file</li>
+          </div>
+        </div>
       </div>
     </div>
   </div>
-  <div class="col-sm-8"><a href="{{url_for('redirect_to_shellinabox')}}" target="_blank">Terminal Access</a></div>
+  <div class="col-sm-8">
+    <h2>Run the Pi</h2>
+    <div class="well well-sm">
+      Run the Raspberry Pi computer from this terminal:
+    </div>
+    <div class="embed-responsive embed-responsive-4by3">
+      <iframe class="embed-responsive-item" src="{{url_for('redirect_to_shellinabox')}}"></iframe>
+    </div>
 </div>
 <hr style="margin:0; padding:0; background-color: #F7D25F; border: 0; height:1px;" />
 {% endblock %}
