@@ -20,7 +20,7 @@
     <div class="row pull-right">
       <div class="panel panel-default">
         <div class="panel-body">
-          <img src="{{ latest_image }}" class="img-thumbnail img-responsive"></div>
+          <a href="{{url_for('show_finsta_feed')}}"><img src="{{ latest_image }}" class="img-thumbnail img-responsive"></div></a>
         <div class="panel-footer">
           <div><h2><a href="{{url_for('show_finsta_feed')}}">FUSE Insta</a></h2></div>
           <div>Opens the Insta in a new window.</div>
