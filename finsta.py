@@ -34,7 +34,7 @@ def redirect_to_shellinabox():
     is being run with the Flask debugger thing.  In that case, we'll send the
     user back to the index (it should really show an error page).
     """
-    return redirect(url_for('show_homepage'))
+    return redirect(url_for('show_error_page'))
 
 
 @app.route("/finsta")
