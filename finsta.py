@@ -52,5 +52,10 @@ def show_finsta_feed():
     return render_template('finsta.html', images=image_paths)
 
 
+@app.route("/error")
+def show_error_page():
+    return render_template('error.html')
+
+
 if __name__ == "__main__":
     app.run(debug=True, host='0.0.0.0')

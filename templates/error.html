@@ -1,21 +1,27 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+{% extends "bootstrap/base.html" %}
+
+{% block styles %}
+  {{ super() }}
   <link href="https://fonts.googleapis.com/css?family=Rancho" rel="stylesheet">
-  <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='stylesheet.css') }}"/>
-</head>
+  <!-- <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='stylesheet.css') }}"/> -->
+{% endblock %}
 
-<body>
-<img class="logo" src="/logos/FUSER.png">
-<h1> An error occured! </a> </h1>
-<hr style="margin:0; padding:0; background-color: #F7D25F; border: 0; height:1px;" />
+{% block title %}
+An error occured!
+{% endblock %}
 
-<div style="text-align: left; padding: 0px">
-{% for line in stack_trace %}
-<pre>{{line}}</pre><br>
-{% endfor %}
+{% block content %}
+<div class="container">
+    <div class="row">
+      <div class="panel panel-default panel-warning">
+        <div class="panel-heading text-center">
+        	<h1><span class="glyphicon glyphicon-warning-sign"></span> Unknown Error</h1></div>
+        <div class="panel-body">
+
+	    	<p>Something went wrong!  Sorry about that.</p>
+	    	<p>Try heading back <a href="{{ url_for('show_homepage') }}">home</a> instead.</p>
+        </div>
+      </div>
+    </div>
 </div>
-
-</body>
-</html>
+{% endblock %}
