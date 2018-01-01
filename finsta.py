@@ -23,7 +23,17 @@ def sorted_files(path):
 
 @app.route('/')
 def show_homepage():
-    return render_template('homepage.html', hostname=socket.gethostname())
+    try:
+        location = os.path.join(
+            os.path.dirname(os.path.abspath(__file__)),
+            'static',
+            'images')
+        latest_image = os.path.join('images', sorted_files(location)[0])
+    except FileNotFoundError as e:
+        latest_image = ""
+    return render_template('homepage.html',
+                           hostname=socket.gethostname(),
+                           latest_image=latest_image)
 
 
 @app.route('/shell')
