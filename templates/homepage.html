@@ -13,7 +13,16 @@
 {% block content %}
 <div class="container" style="padding-top: 20px;">
 <div class="row">
-  <div class="col-sm-4 text-right">
+  <div class="col-sm-8 col-sm-push-4">
+    <h2>Run the Pi</h2>
+    <div class="well well-sm">
+      Run the Raspberry Pi computer from this terminal:
+    </div>
+    <div class="embed-responsive embed-responsive-4by3">
+      <iframe class="embed-responsive-item" src="{{url_for('redirect_to_shellinabox')}}"></iframe>
+    </div>
+</div>
+  <div class="col-sm-4 col-sm-pull-8 text-right">
     <div class="row">
       <img class="img-responsive pull-right form-group" src="/logos/FUSER.png">
     </div>
@@ -47,14 +56,5 @@
       </div>
     </div>
   </div>
-  <div class="col-sm-8">
-    <h2>Run the Pi</h2>
-    <div class="well well-sm">
-      Run the Raspberry Pi computer from this terminal:
-    </div>
-    <div class="embed-responsive embed-responsive-4by3">
-      <iframe class="embed-responsive-item" src="{{url_for('redirect_to_shellinabox')}}"></iframe>
-    </div>
-</div>
 </div>
 {% endblock %}
