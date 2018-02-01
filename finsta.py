@@ -1,7 +1,7 @@
 from flask import Flask, render_template, url_for, redirect
 import socket
 import os
-from itertools import repeat
+from itertools import repeat, groupby, count
 from flask_bootstrap import Bootstrap
 
 app = Flask(__name__, static_url_path='')
@@ -19,6 +19,19 @@ def sorted_files(path):
     def modification_time(f):
         return os.stat(os.path.join(path, f)).st_mtime
     return sorted(os.listdir(path), key=modification_time, reverse=True)
+
+
+def get_chunks(iterable, size):
+    """
+    Splits an iterable into "size"-sized chunks. Ex: [0,1,2,3] --> [0,1,2],[3]
+    Thanks to Daniel Lepage: code.activestate.com/recipes/303279/#c7
+    Arguments:
+        iterable -- Iterable to be split up
+        size(int) -- Max size of each chunk
+    """
+    c = count()
+    for k, g in groupby(iterable, lambda x: next(c) // size):
+        yield g
 
 
 @app.route('/')
@@ -59,7 +72,8 @@ def show_finsta_feed():
         # let the camera make the folder later.
         images = ()
     image_paths = map(os.path.join, repeat('images'), images)
-    return render_template('finsta.html', images=image_paths)
+    image_chunks = get_chunks(image_paths, 3)
+    return render_template('finsta.html', images=image_chunks)
 
 
 @app.route("/error")
