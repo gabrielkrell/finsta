@@ -2,6 +2,7 @@
 
 {% block styles %}
   {{ super() }}
+  <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='stylesheet.css') }}"/>
   <meta http-equiv="refresh" content="30"/>
 {% endblock %}
 
@@ -11,17 +12,16 @@ Studio Finstagram
 
 
 {% block content %}
-<div class="container" style="padding-top: 20px;">
+<div class="container page-container">
 <div class="row text-center">
 
 <img class="logo" src="/logos/FUSER.png">
 <h1 class="page-header"> Studio Finsta </a> </h1>
-<!-- <hr style="margin:0; padding:0; background-color: #F7D25F; border: 0; height:1px;" /> -->
 
 </div>
 
 {% for chunk in images %}
-  <div class="row" style="-webkit-margin-after: 20px;">
+  <div class="row image-row">
   {% for image in chunk %}
     <div class="col-md-4">
       <img  class="img-thumbnail img-responsive" src="{{ url_for('static', filename=image) }}">

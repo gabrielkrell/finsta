@@ -1,11 +1,16 @@
 {% extends "bootstrap/base.html" %}
 
+{% block styles %}
+  {{ super() }}
+  <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='stylesheet.css') }}"/>
+{% endblock %}
+
 {% block title %}
   Run the Pi
 {% endblock %}
 
 {% block content %}
-<div class="container" style="padding-top: 20px;">
+<div class="container page-container">
 <div class="row">
   <div class="col-sm-8 col-sm-push-4">
     <h2>Run the Pi</h2>
@@ -28,7 +33,7 @@
         </div>
         <div class="panel-footer">
           <div>
-            <h2 style="-webkit-margin-before: 0em;"><a href="{{url_for('show_finsta_feed')}}" target="_blank">FUSE Insta</a></h2>
+            <h2 class="panel-header"><a href="{{url_for('show_finsta_feed')}}" target="_blank">FUSE Insta</a></h2>
           </div>
           <div>Opens the Insta in a new window.</div>
         </div>
