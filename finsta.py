@@ -1,4 +1,4 @@
-from flask import abort, Flask, render_template, request, url_for, jsonify
+from flask import abort, Flask, render_template, redirect, request, url_for, jsonify, send_from_directory
 import socket
 import os
 import subprocess
@@ -44,7 +44,7 @@ def show_homepage():
             'images')
         latest_image = os.path.join('images', sorted_files(location)[0])
     except FileNotFoundError as e:
-        latest_image = ""
+        abort(404)
     return render_template('homepage.html',
                            hostname=socket.gethostname(),
                            latest_image=latest_image)
@@ -75,6 +75,19 @@ def show_finsta_feed():
     image_paths = map(os.path.join, repeat('images'), images)
     image_chunks = get_chunks(image_paths, 3)
     return render_template('finsta.html', images=image_chunks)
+
+
+@app.route("/latest_image")
+def show_latest_image():
+    try:
+        location = os.path.join(
+            os.path.dirname(os.path.abspath(__file__)),
+            'static',
+            'images')
+        latest_image = os.path.join('images', sorted_files(location)[0])
+        return redirect(latest_image)
+    except FileNotFoundError:
+        return "", 404
 
 
 @app.route("/error")
