@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, url_for, redirect
+from flask import abort, Flask, render_template, request, url_for, jsonify
 import socket
 import os
 import subprocess
@@ -82,18 +82,22 @@ def show_error_page():
     return render_template('error.html')
 
 
-@app.route("/update_hostname")  # , methods=['POST'])
+@app.route("/update_hostname", methods=['POST'])
 def update_hostname():
-    body = request.get_json()
-    return request.environ['REMOTE_ADDR']
-    return request.headers['X-Forwarded-For']
-    return request.access_route
-    """example body:
-    {
-        'hostname': hostname
-    }
-    """
-    subprocess.run(['sudo', '/usr/sbin/change_hostname.sh', body['hostname']])
+    fuse_ip = socket.gethostbyname('rpis.fusestudio.net')
+    request_ip = request.headers['X-Forwarded-For']
+    if fuse_ip != request_ip:
+        abort(403)  # only finsta-coordinator can change the pi's hostname
+    hostname = request.get_json()['hostname']
+    if not hostname:
+        abort(400)  # can't change to a blank hostname or Bad Things happen
+    try:
+        subprocess.run(
+            ['sudo', '/usr/sbin/change_hostname.sh', hostname])
+    except subprocess.CalledProcessError as e:
+        return jsonify({'returncode': e.returncode}), 500
+    else:
+        return 'OK', 200
 
 
 if __name__ == "__main__":
