@@ -1,6 +1,7 @@
-from flask import Flask, render_template, url_for, redirect
+from flask import Flask, render_template, request, url_for, redirect
 import socket
 import os
+import subprocess
 from itertools import repeat, groupby, count
 from flask_bootstrap import Bootstrap
 
@@ -79,6 +80,20 @@ def show_finsta_feed():
 @app.route("/error")
 def show_error_page():
     return render_template('error.html')
+
+
+@app.route("/update_hostname")  # , methods=['POST'])
+def update_hostname():
+    body = request.get_json()
+    return request.environ['REMOTE_ADDR']
+    return request.headers['X-Forwarded-For']
+    return request.access_route
+    """example body:
+    {
+        'hostname': hostname
+    }
+    """
+    subprocess.run(['sudo', '/usr/sbin/change_hostname.sh', body['hostname']])
 
 
 if __name__ == "__main__":
