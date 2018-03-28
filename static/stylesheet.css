@@ -6,4 +6,14 @@
 	-webkit-margin-after: 20px;
 }
 
+h2 {
+	font-family: 'Quicksand', sans-serif;
+	font-weight: 700;
+	color: #086384;
+}
+
+.fuse-header { /* page-header normally overrides the h styles */
+	font-family: 'Quicksand', sans-serif;
+	font-weight: 700;
+	color: #086384;
 }
