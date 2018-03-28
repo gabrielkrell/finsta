@@ -12,7 +12,14 @@
 {% block content %}
 <div class="container page-container">
 <div class="row">
-  <div class="col-sm-8 col-sm-push-4">
+
+  <div class="col-sm-2 text-right">
+    <div class="row">
+      <img class="img-responsive" src="/logos/FUSER.png">
+    </div>
+  </div>
+
+  <div class="col-sm-7">
     <h2>Run the Pi</h2>
     <div class="well well-sm">
       Run the Raspberry Pi computer from this terminal:
@@ -20,40 +27,24 @@
     <div class="embed-responsive embed-responsive-4by3">
       <iframe class="embed-responsive-item" src="{{url_for('redirect_to_shellinabox')}}"></iframe>
     </div>
-</div>
-  <div class="col-sm-4 col-sm-pull-8 text-right">
+  </div>
+
+  <div class="col-sm-3">
     <div class="row">
-      <img class="img-responsive pull-right form-group" src="/logos/FUSER.png">
-    </div>
-    <div class="row">
-      <div class="panel panel-default">
-        <div class="panel-body">
-          <a href="{{url_for('show_finsta_feed')}}" target="_blank">
-          <img src="{{ latest_image }}" class="img-thumbnail img-responsive"></a>
-        </div>
-        <div class="panel-footer">
-          <div>
-            <h2 class="panel-header"><a href="{{url_for('show_finsta_feed')}}" target="_blank">FUSE Insta</a></h2>
-          </div>
-          <div>Opens the Insta in a new window.</div>
+      <h2>Code Tips</h2>
+        <div class="list-group">
+          <li class="list-group-item">
+            <code>ls</code>: list the files in a directory</li>
+          <li class="list-group-item">
+            <code>cd</code>: go into a folder</li>
+          <li class="list-group-item">
+            <code>nano</code>: edit a text file</li>
         </div>
       </div>
-    </div>
     <div class="row">
-      <div class="panel panel-default">
-        <div class="panel-heading">Code Tips</div>
-        <div class="panel-body">
-          <div class="list-group">
-            <li class="list-group-item">
-              <code>ls</code>: list the files in a directory</li>
-            <li class="list-group-item">
-              <code>cd</code>: go into a folder</li>
-            <li class="list-group-item">
-              <code>nano</code>: edit a text file</li>
-          </div>
-        </div>
-      </div>
+      <a href="{{url_for('show_finsta_feed')}}" class="btn btn-success text-uppercase" target="_blank">Open the Studio Insta</a>
     </div>
   </div>
+
 </div>
 {% endblock %}
