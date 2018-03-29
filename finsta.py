@@ -98,6 +98,17 @@ def show_error_page():
     return render_template('error.html')
 
 
+@app.route("/take_picture", methods=['POST'])
+def take_picture():
+    """Take a picture with default settings.
+
+    To do: should we check that this command is coming from FUSE?
+    """
+    from camera_scripts import take_picture  # lazy import in case it's broken
+    take_picture.click()
+    return "OK", 200
+
+
 @app.route("/update_hostname", methods=['POST'])
 def update_hostname():
     fuse_ip = socket.gethostbyname('rpis.fusestudio.net')
