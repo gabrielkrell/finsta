@@ -1,4 +1,4 @@
-from flask import abort, Flask, render_template, redirect, request, url_for, jsonify, send_from_directory
+from flask import abort, Flask, render_template, redirect, request, url_for, jsonify
 import socket
 import os
 import subprocess
@@ -101,9 +101,11 @@ def update_hostname():
     request_ip = request.headers['X-Forwarded-For']
     if fuse_ip != request_ip:
         abort(403)  # only finsta-coordinator can change the pi's hostname
+
     hostname = request.get_json()['hostname']
     if not hostname:
         abort(400)  # can't change to a blank hostname or Bad Things happen
+
     try:
         subprocess.run(
             ['sudo', '/usr/sbin/change_hostname.sh', hostname])
