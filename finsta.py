@@ -108,13 +108,16 @@ def take_picture():
     # due to some threading business.  Instead, we're going to run our
     # take_picture script directly.
     try:
+        os.environ['PYTHONPATH'] = '/usr/lib/python3/dist-packages'
         subprocess.run(
             ['python3', '/opt/finsta/camera_scripts/take_picture.py'],
             stderr=subprocess.PIPE,
+            stdout=subprocess.PIPE,
             check=True)
     except subprocess.CalledProcessError as e:
         return jsonify({'returncode': e.returncode,
-                        'stderr': str(e.stderr)}), 500
+                        'stderr': str(e.stderr),
+                        'stdout': str(e.stdout)}), 500
     else:
         return 'OK', 200
 
