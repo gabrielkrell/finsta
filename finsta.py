@@ -108,12 +108,13 @@ def take_picture():
     # due to some threading business.  Instead, we're going to run our
     # take_picture script directly.
     try:
-        subprocess.run(
-            ['python3', '/opt/finsta/camera_scripts/take_picture.py'])
+        cp = subprocess.run(
+            ['python3', '/opt/finsta/camera_scripts/take_picture.py'],
+            stdout=subprocess.PIPE)
     except subprocess.CalledProcessError as e:
         return jsonify({'returncode': e.returncode}), 500
     else:
-        return 'OK', 200
+        return cp.stdout or 'OK', 200
 
 
 @app.route("/update_hostname", methods=['POST'])
