@@ -109,7 +109,8 @@ def take_picture():
     # take_picture script directly.
     try:
         subprocess.run(
-            ['python3', '/opt/finsta/camera_scripts/take_picture.py'])
+            ['python3', '/opt/finsta/camera_scripts/take_picture.py'],
+            check=True)
     except subprocess.CalledProcessError as e:
         return jsonify({'returncode': e.returncode}), 500
     else:
@@ -129,7 +130,8 @@ def update_hostname():
 
     try:
         subprocess.run(
-            ['sudo', '/usr/sbin/change_hostname.sh', hostname])
+            ['sudo', '/usr/sbin/change_hostname.sh', hostname],
+            check=True)
     except subprocess.CalledProcessError as e:
         return jsonify({'returncode': e.returncode}), 500
     else:
