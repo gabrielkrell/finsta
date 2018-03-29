@@ -1,8 +1,11 @@
-from flask import abort, Flask, render_template, redirect, request, url_for, jsonify
-import socket
 import os
+import socket
 import subprocess
-from itertools import repeat, groupby, count
+from itertools import count, groupby, repeat
+
+from flask import (Flask, abort, jsonify, redirect, render_template, request,
+                   url_for)
+
 from flask_bootstrap import Bootstrap
 
 app = Flask(__name__, static_url_path='')
