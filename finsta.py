@@ -129,9 +129,14 @@ def update_hostname():
 
     try:
         subprocess.run(
-            ['sudo', '/usr/sbin/change_hostname.sh', hostname])
+            ['sudo', '/usr/sbin/change_hostname.sh', hostname],
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE)
     except subprocess.CalledProcessError as e:
-        return jsonify({'returncode': e.returncode}), 500
+        return jsonify({'returncode': e.returncode,
+                        'stdout': e.stdout,
+                        'stderr': e.stderr
+                        }), 500
     else:
         return 'OK', 200
 
