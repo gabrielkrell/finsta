@@ -104,9 +104,16 @@ def take_picture():
 
     To do: should we check that this command is coming from FUSE?
     """
-    from camera_scripts import take_picture  # lazy import in case it's broken
-    take_picture.click()
-    return "OK", 200
+    # note: a few months ago we ran into trouble running this stuff from Flask
+    # due to some threading business.  Instead, we're going to run our
+    # take_picture script directly.
+    try:
+        subprocess.run(
+            ['python3', '/opt/finsta/camera_scripts/take_picture.py'])
+    except subprocess.CalledProcessError as e:
+        return jsonify({'returncode': e.returncode}), 500
+    else:
+        return 'OK', 200
 
 
 @app.route("/update_hostname", methods=['POST'])
