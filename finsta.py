@@ -20,6 +20,7 @@ def sorted_files(path):
     Returns:
         list(str) -- A list of filenames, sorted by modification time.
     """
+    # TODO: exclude folders
     def modification_time(f):
         return os.stat(os.path.join(path, f)).st_mtime
     return sorted(os.listdir(path), key=modification_time, reverse=True)
