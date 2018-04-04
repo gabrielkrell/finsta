@@ -2,8 +2,12 @@
 	padding-top: 20px
 }
 
-.image-row { /* each row of images in the feed */
-	-webkit-margin-after: 20px;
+.image-div-xs-sm { /* after each image in feed, when screen is small */
+	margin-bottom:30px;
+}
+
+.image-row-div-md-lg { /* after each row of images in feed */
+	margin-bottom:20px;
 }
 
 h2 {
