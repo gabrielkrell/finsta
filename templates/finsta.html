@@ -24,9 +24,14 @@ Studio Finstagram
 {% for chunk in images %}
   <div class="row image-row">
   {% for image in chunk %}
-    <div class="col-md-4">
-      <img class="img-thumbnail img-responsive center-block" src="{{ url_for('static', filename=image) }}">
+    <div class="col-sm-2 col-xs-1 visible-sm-inline-block visible-xs-inline-block"></div>
+
+    <div class="col-md-4 col-sm-8 col-xs-10">
+      <img class="img-thumbnail img-responsive" src="{{ url_for('static', filename=image) }}">
     </div>
+
+    <div class="col-sm-2 col-xs-1 visible-sm-block visible-xs-inline-block"></div>
+    <div class="clearfix visible-sm-block visible-xs-block"></div>
   {% endfor %}
   </div>
 {% endfor %}
