@@ -18,16 +18,25 @@ def make_image_path(filename):
 
 @contextmanager
 def shielded_camera():
-    """Context manager: handle PiCamera opening/closing and retry logic.
+    """Handle PiCamera opening/closing, retry logic and make capture() nicer.
 
-    Open a PiCamera in our standard resolution, retrying if it's in use.  After
-    use, clean up with camera.close().
+    Open a PiCamera in our standard resolution, retrying if it's in use.  Patch
+    capture() to take a file name instead of a complete path. After use, clean
+    up with camera.close().
     :returns: a PiCamera instance
     :rtype: PiCamera
     """
     while True:
         try:
             camera = PiCamera(resolution=(600, 600))
+            camera._capture = camera._capture
+
+            def capture_by_filename(self, filename):
+                """Monkey-patch PiCamera's capture() to take a filename instead
+                of a path.
+                """
+                self._capture(make_image_path(filename))
+            camera.capture = capture_by_filename
             try:
                 yield camera
             finally:

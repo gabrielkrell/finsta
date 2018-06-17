@@ -1,4 +1,4 @@
-from helpful_tools import shielded_camera, make_image_path
+from helpful_tools import shielded_camera
 
 from picamera import Color
 from time import sleep
@@ -25,7 +25,7 @@ def click():
         # saturation, colorswap, washedout, posterise, colorpoint, cartoon
 
         sleep(2)  # wait for the camera to be ready
-        camera.capture(make_image_path('img_%s.jpg' % date_str))
+        camera.capture('img_%s.jpg' % date_str)
         print('You took a photo!')
 
 
