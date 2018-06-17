@@ -1,6 +1,7 @@
 """
 This file contains tools to make your camera scripts easier. The example runs
-code from this file.  You shouldn't need to edit this or make your own copy.
+code from this file.  You shouldn't need to edit this or make your own copy,
+but it might be fun to look around.
 """
 from picamera import PiCamera, PiCameraMMALError
 from time import sleep
@@ -26,6 +27,7 @@ def shielded_camera():
     :returns: a PiCamera instance
     :rtype: PiCamera
     """
+    fail_count = 0
     while True:
         try:
             camera = PiCamera(resolution=(600, 600))
@@ -43,7 +45,11 @@ def shielded_camera():
                 camera.close()
             break
         except PiCameraMMALError:
-            print('Someone else is using the camera. Retrying...')
+            fail_count += 1
+            print('Someone else is using the camera. Retrying... ({})'.format(
+                fail_count))
+            if fail_count == 5:  # Show this message only once
+                print("Press Ctrl+C to cancel.")
             sleep(1)
 
 
